@@ -30,23 +30,29 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 	@SuppressWarnings("hiding")
 	public class ArrayListWithRepIterator<T> implements Iterator<T> {
 		
-	
+		private int count;
+		private int current;
+		private ElemListWithRep<T>[] items;
+		 
 		public ArrayListWithRepIterator(ElemListWithRep<T>[] cola, int count){
 					
+		this.items = cola;
+		this.count = count;
+		this.current = 0;
+		
 		}
-
 		@Override
 		public boolean hasNext() {
 			//TODO
-			return false;
-			
-		
+			 return (current < count); 			
 		}
 
 		@Override
 		public T next() {
-			//TODO
-			return null;
+			if (! hasNext())
+				 throw new NoSuchElementException();
+				 current ++;
+				 return items[current -1].elem;
 		}
 		
 		
@@ -58,23 +64,29 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 	@SuppressWarnings("hiding")
 	public class ArrayListWithRepIteratorRep<T> implements Iterator<T> {
 		
+		private int count;
+		private int current;
+		private ElemListWithRep<T>[] items;
 	
 		public ArrayListWithRepIteratorRep(ElemListWithRep<T>[] cola, int count){
-					
+			
+			this.items = cola;
+			this.count = count;
+			this.current = 0;
 		}
 
 		@Override
 		public boolean hasNext() {
 			//TODO
-			return false;
-			
-		
+			 return (current < count); 						
 		}
 
 		@Override
 		public T next() {
-			//TODO
-			return null;
+			if (! hasNext())
+				 throw new NoSuchElementException();
+				 current ++;
+				 return items[current -1].elem;
 		}
 		
 		
