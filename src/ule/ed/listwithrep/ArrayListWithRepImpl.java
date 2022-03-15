@@ -120,62 +120,123 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 	
 			@Override
 			public void add(T element, int times) {
-				// TODO 
-			
+				 if (!(contains(element))) {
+					 if (size() == data.length)
+						 expandCapacity();
+					 data[count].elem = element;
+					 data[count].num = times;
+					 count++;
+				 }
 			}
 			
 
 			@Override
 			public void add(T element) {
-				// TODO 
-				
-				}
+					 if (!(contains(element))) {
+						 if (size() == data.length)
+							 expandCapacity();
+						 data[count].elem = element;
+						 count++;
+					 }
+			}
 
 			@Override
 			public int remove(T element, int times) throws EmptyCollectionException {
-				// TODO
-				return 0;
+				int times2 = 0;
+				boolean search= false;
+				int place = 0; //donde esta el elemento que queremos eliminar
+				if (isEmpty())
+				throw new EmptyCollectionException("");
+
+				for (int index=0; index<count && search==false; index++) {
+					if (data[index].equals(element)) {
+						search=true;
+						place = index;
+					}
+				}
+
+				if (search == false) {
+				throw new NoSuchElementException();
+				}else {
+					data[place].num = times2;
+					data[place] = data[count-1];
+					data[count-1]=null;
+					count--;
+				}
+
+				return times2;
 				 	
 			}
 
 			@Override
 			public int remove() throws EmptyCollectionException {
-				// TODO
-				return 0;
-				
+				int times = 0;
+				if (isEmpty())
+				throw new EmptyCollectionException("");
+
+				data[0].num = times;
+				data[0] = data[count-1];
+				data[count-1]=null;
+				count--;
+				return times; 
+
 			}
 
 			@Override
 			public void clear() {
-				// TODO 
+				if (isEmpty()) {
+				}else {
+					for(int i=0;i<count;i++) {
+						data[i]=null;
+					}
+				}
 				
 			}
 			
 
 			@Override
 			public boolean contains(T element) {
-				// TODO 
-			
+				for(int i=0;i<count;i++) {
+					if(data[i].elem.equals(element)) {
+						return true;
+					}
+				}
 				return false;
 
 			}
 
 			@Override
 			public boolean isEmpty() {
-				// TODO 
-				return false;
+				for(int i=0;i<count;i++) {
+					if(data[i] != null) {
+						return false;
+					}
+				}
+				return true;
 			}
 
 			@Override
 			public long size() {
-				// TODO 
-				return 0;	
+				long size=0;
+				for(int i=0;i<count;i++) {
+					size = size + data[i].num;
+				}
+				return size;	
 			}
 
 			@Override
 			public int count(T element) {
-				// TODO 
-				return 0;
+				int count = 0;
+				if(contains(element)==false) {
+					return 0;
+				}else {
+					for(int i=0;i<count;i++) {
+						if(data[i].elem.equals(element)) {
+							count = count + data[i].num;
+						}
+					}
+				return count;
+				}
 			}
 
 			@Override
