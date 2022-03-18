@@ -120,24 +120,36 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 	
 			@Override
 			public void add(T element, int times) {
-				 if (!(contains(element))) {
+				if(element == null) {
+					throw new IllegalArgumentException("IllegalArgumentException");
+				}
+				else if (!(contains(element))) {
 					 if (size() == data.length)
 						 expandCapacity();
 					 data[count].elem = element;
 					 data[count].num = times;
 					 count++;
+				 }else {
+					 int place = whereContains(element);
+					 data[place].num += 1;
 				 }
 			}
 			
 
 			@Override
 			public void add(T element) {
-					 if (!(contains(element))) {
+				if(element == null) {
+					throw new IllegalArgumentException("IllegalArgumentException");
+				}
+				else if (!(contains(element))) {
 						 if (size() == data.length)
 							 expandCapacity();
 						 data[count].elem = element;
 						 count++;
-					 }
+				}else {
+					 int place = whereContains(element);
+					 data[place].num += 1;
+				 }
 			}
 
 			@Override
@@ -204,6 +216,16 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 				return false;
 
 			}
+			
+			public int whereContains(T element) {
+				int place = 0;
+				for(int i=0;i<count;i++) {
+					if(data[i].elem.equals(element)) {
+						place = i;
+					}
+				}
+				return place;
+			}
 
 			@Override
 			public boolean isEmpty() {
@@ -241,14 +263,12 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 
 			@Override
 			public Iterator<T> iterator() {
-				// TODO 
-				return null;
+				return new ArrayListWithRepIterator<T> (data, count);
 			}
 			
 			@Override
 			public Iterator<T> iteratorRep() {
-				// TODO 
-				return null;
+				return new ArrayListWithRepIteratorRep<T> (data, count);
 			}
 
 			
@@ -261,6 +281,9 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 
 				// TODO Ir añadiendo en buffer las cadenas para la representación de la cola. Ejemplo: (A A A B )
 				// Se concatena cada elemento seguido por un espacio
+				for( int i=0;i<data.length;i++) {
+					buffer.append(data[i].elem + " ");
+				}
 				
 				buffer.append(")");
 				
