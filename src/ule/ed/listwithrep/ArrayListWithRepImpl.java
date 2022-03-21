@@ -126,12 +126,12 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 				else if (!(contains(element))) {
 					 if (size() == data.length)
 						 expandCapacity();
-					 data[count].elem = element;
-					 data[count].num = times;
+					 	data[count].elem = element;
+					 	data[count].num = times;
 					 count++;
 				 }else {
 					 int place = whereContains(element);
-					 data[place].num += 1;
+					 this.data[place].num += 1;
 				 }
 			}
 			

@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import ule.ed.exceptions.EmptyCollectionException;
+import ule.ed.listwithrep.ArrayListWithRepImpl.ArrayListWithRepIterator;
 
 
 public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
@@ -206,14 +207,12 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 	@Override
 	public boolean contains(T element) {
 		boolean found = false;
-		ListWithRepNode<T> previous, current;
-		previous =front;
-		current = front.next;
+		ListWithRepNode<T> current;
+		current = front;
 		for (int look=1; look<count && !found; look++) {
 			if (current.elem.equals(element)) {
 				found = true;
 			}else{
-				previous = current;
 				current = current.next;
 			}
 		}
@@ -222,8 +221,17 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 
 	@Override
 	public long size() {
-		//TODO
-		return 0;
+	 long size = 0;
+	 if(isEmpty()) {}
+	 else{
+		 ListWithRepNode<T> current;
+			current = front;
+			for (int look=1; look<count; look++) {
+				size = size + current.num;
+				current = current.next;
+			}
+	 }
+		return size;
 		
 	}
 
@@ -238,31 +246,50 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 
 	@Override
 	public int remove() throws EmptyCollectionException {
-		//TODO
-	 return 0;
+		int rep = 0;
+		if(isEmpty()) {
+			throw new EmptyCollectionException("");
+		}else {
+			ListWithRepNode<T> aux;
+			aux = front.next;
+			rep = aux.num;
+			front = aux;
+		}
+		return rep;
     }
 
 	@Override
 	public void clear() {
-		//TODO		
+		ListWithRepNode<T> aux;
+		aux = null;
+		front.next = aux;
 	}
 
 	@Override
 	public int count(T element) {
-		//TODO
-		return 0;
+		int num = 0;
+		if(!contains(element)){}
+		else if(element.equals(null)) {
+			throw new NullPointerException();
+		}else {
+			ListWithRepNode<T> current;
+			current = front;
+			for (int look=1; look<count; look++) {
+				num = num + current.num;
+				current = current.next;
+			}
+		}
+		return num;
 	}
 	
 	@Override
 	public Iterator<T> iterator() {
-		//TODO
-		return null;
+		return new LinkedListWithRepIterator<T> (front, count);
 	}
 
 	@Override
 	public Iterator<T> iteratorRep() {
-		// TODO 
-		return null;
+		return new LinkedListWithRepIteratorRep<T> (front, count);
 	}
 	@Override
 	public String toString() {
@@ -272,6 +299,12 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		buffer.append("(");
 		
 		// TODO Ir añadiendo en buffer las cadenas para la representación de la cola. Ejemplo: (A A A B )
+		ListWithRepNode<T> current;
+		current = front;
+		for (int look=1; look<count; look++) {
+			buffer.append(current.elem + " ");
+			current = current.next;
+		}
 		// Se concatena cada elemento seguido por un espacio
 		
 		buffer.append(")");
