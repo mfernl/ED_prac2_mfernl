@@ -125,10 +125,10 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 				}
 				else if (!(contains(element))) {
 					 if (size() == data.length)
-						 expandCapacity();
-					 	data[count].elem = element;
-					 	data[count].num = times;
-					 count++;
+						expandCapacity();
+					 	ElemListWithRep<T> nuevo = new ElemListWithRep<T>(element,times);
+					 	data[count] = nuevo;
+					 	count++;
 				 }else {
 					 int place = whereContains(element);
 					 this.data[place].num += 1;
@@ -143,9 +143,10 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 				}
 				else if (!(contains(element))) {
 						 if (size() == data.length)
-							 expandCapacity();
-						 data[count].elem = element;
-						 count++;
+							expandCapacity();
+						 	ElemListWithRep<T> nuevo = new ElemListWithRep<T>(element,1);
+						 	data[count] = nuevo;
+						 	count++;
 				}else {
 					 int place = whereContains(element);
 					 data[place].num += 1;
