@@ -134,14 +134,12 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 			count++; 
 		}else {
 			boolean found = false;
-			ListWithRepNode<T> previous, current;
-			previous =front;
-			current = front.next;
-			for (int look=1; look<count && !found; look++) {
+			ListWithRepNode<T> current;
+			current = front;
+			for (int look=0; look<count && !found; look++) {
 				if (current.elem.equals(element)) {
 					found = true;
 				}else{
-					previous = current;
 					current = current.next;
 				}
 			}
@@ -209,8 +207,8 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		boolean found = false;
 		ListWithRepNode<T> current;
 		current = front;
-		for (int look=1; look<count && !found; look++) {
-			if (current.elem.equals(element)) {
+		while(current != null && found != true) {
+		if (current.elem.equals(element)) {
 				found = true;
 			}else{
 				current = current.next;
@@ -226,7 +224,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 	 else{
 		 ListWithRepNode<T> current;
 			current = front;
-			for (int look=1; look<count; look++) {
+			for (int look=0; look<count; look++) {
 				size = size + current.num;
 				current = current.next;
 			}
@@ -237,7 +235,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 
 	@Override
 	public boolean isEmpty() {
-		if(front.next == null) {
+		if(front == null) {
 			return true;
 		}else {
 			return false;
@@ -274,8 +272,10 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		}else {
 			ListWithRepNode<T> current;
 			current = front;
-			for (int look=1; look<count; look++) {
+			for (int look=0; look<count; look++) {
+				if(current.elem.equals(element)) {
 				num = num + current.num;
+				}
 				current = current.next;
 			}
 		}
