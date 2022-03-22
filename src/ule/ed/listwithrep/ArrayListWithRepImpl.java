@@ -111,10 +111,14 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 	
 	 @SuppressWarnings("unchecked")
 	 private void expandCapacity() {
-		//TODO
-			ElemListWithRep<T>[] nuevo= (ElemListWithRep<T>[]) new ElemListWithRep[data.length*2];
-			
-			// todo
+		ElemListWithRep<T>[] nuevo = new ElemListWithRep[data.length*2];
+			for(int i=0; i<count; i++) {
+				if(this.data[i]==null) {}
+				else {
+				nuevo[i]=this.data[i];
+				}
+			}
+			this.data = nuevo;
 		}
 	 
 	
@@ -131,7 +135,7 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 					 	count++;
 				 }else {
 					 int place = whereContains(element);
-					 this.data[place].num += 1;
+					 this.data[place].num += times;
 				 }
 			}
 			
@@ -158,25 +162,38 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 				int times2 = 0;
 				boolean search= false;
 				int place = 0; //donde esta el elemento que queremos eliminar
-				if (isEmpty())
-				throw new EmptyCollectionException("");
+				if(element == null) {
+					throw new NullPointerException("");
+				}else 
+				if(times < 0) {
+					throw new IllegalArgumentException("");
+				}else 
+				if(times == 0) {
+					times2 = 0;
+				}else 
+				if (isEmpty()) {
+					throw new EmptyCollectionException("");
+				}else 
+				if(!contains(element)) {
+					throw new NoSuchElementException("");
+				}else {
 
-				for (int index=0; index<count && search==false; index++) {
-					if (data[index].equals(element)) {
+					for (int index=0; index<count && search==false; index++) {
+						if (data[index].equals(element)) {
 						search=true;
 						place = index;
+						}
+					}
+
+					if (search == false) {
+						throw new NoSuchElementException();
+					}else {
+						data[place].num = times2;
+						data[place] = data[count-1];
+						data[count-1]=null;
+						count--;
 					}
 				}
-
-				if (search == false) {
-				throw new NoSuchElementException();
-				}else {
-					data[place].num = times2;
-					data[place] = data[count-1];
-					data[count-1]=null;
-					count--;
-				}
-
 				return times2;
 				 	
 			}
@@ -253,7 +270,7 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 				if(contains(element)==false) {
 					return 0;
 				}else {
-					for(int i=0;i<count;i++) {
+					for(int i=0;i<this.count;i++) {
 						if(data[i].elem.equals(element)) {
 							count = count + data[i].num;
 						}
@@ -283,7 +300,12 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 				// TODO Ir añadiendo en buffer las cadenas para la representación de la cola. Ejemplo: (A A A B )
 				// Se concatena cada elemento seguido por un espacio
 				for( int i=0;i<data.length;i++) {
+					if(data[i]==null) {}
+					else {
+					for(int j=0;j<data[i].num;j++) {
 					buffer.append(data[i].elem + " ");
+					}
+					}
 				}
 				
 				buffer.append(")");
