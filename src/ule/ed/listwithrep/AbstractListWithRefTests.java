@@ -109,6 +109,11 @@ public abstract class AbstractListWithRefTests {
 		assertEquals(2,S2.remove("XYZ", 2));
 		assertEquals(8,S2.count("XYZ"));
 	}
+	@Test
+	public void testRemoveAll() throws EmptyCollectionException {
+		assertEquals(10,S2.remove("XYZ", 10));
+		assertEquals(0,S2.count("XYZ"));
+	}
 	
 	
 

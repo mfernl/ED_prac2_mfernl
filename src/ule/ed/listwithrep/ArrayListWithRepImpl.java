@@ -164,17 +164,16 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 
 			@Override
 			public int remove(T element, int times) throws EmptyCollectionException {
-				int times2 = 0;
-				boolean search= false;
+				int num = 0;
 				int place = 0; //donde esta el elemento que queremos eliminar
-				if(element == null) {
+				if(element.equals(null)) {
 					throw new NullPointerException("");
 				}else 
 				if(times < 0) {
 					throw new IllegalArgumentException("");
 				}else 
 				if(times == 0) {
-					times2 = 0;
+					num = 0;
 				}else 
 				if (isEmpty()) {
 					throw new EmptyCollectionException("");
@@ -182,24 +181,28 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 				if(!contains(element)) {
 					throw new NoSuchElementException("");
 				}else {
-
-					for (int index=0; index<count && search==false; index++) {
-						if (data[index].equals(element)) {
-						search=true;
+					for (int index=0; index<count; index++) {
+						if (data[index].elem.equals(element)) {
 						place = index;
 						}
 					}
-
-					if (search == false) {
-						throw new NoSuchElementException();
-					}else {
-						data[place].num = times2;
-						data[place] = data[count-1];
-						data[count-1]=null;
-						count--;
-					}
+						if(times>data[place].num) {
+							if(place == count-1) {
+								data[place]=null;
+								count--;
+								num = times;
+							}else {
+								data[place]=data[count-1];
+								data[place]=null;
+								count--;
+								num = times;
+							}
+						}else {
+							data[place].num = data[place].num - times;
+							num = times;
+						}
 				}
-				return times2;
+				return num;
 				 	
 			}
 
@@ -209,7 +212,7 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 				if (isEmpty())
 				throw new EmptyCollectionException("");
 
-				data[0].num = times;
+				times = data[0].num;
 				data[0] = data[count-1];
 				data[count-1]=null;
 				count--;
