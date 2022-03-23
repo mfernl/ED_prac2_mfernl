@@ -99,13 +99,18 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		}
 		else if (! (contains(element))) {
 			ListWithRepNode<T> node = new ListWithRepNode<T> (element,1);
-			ListWithRepNode<T> current;
-			current = front;
-			while(!(current.next.equals(null))) {
-				current = current.next;
+			if(isEmpty()) {
+				front = node;
+				count++;
+			}else {
+				ListWithRepNode<T> current;
+				current = front;
+				while(current.next != null) {
+					current = current.next;
+				}
+				current.next = node;
+				count++; 
 			}
-			current.next = node;
-			count++; 
 		}else {
 			boolean found = false;
 			ListWithRepNode<T> current;
@@ -133,13 +138,18 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		}
 		else if (! (contains(element))) {
 			ListWithRepNode<T> node = new ListWithRepNode<T> (element,times);
-			ListWithRepNode<T> current;
-			current = front;
-			while(!(current.next.equals(null))) {
-				current = current.next;
+			if(isEmpty()) {
+				front = node;
+				count++;
+			}else {
+				ListWithRepNode<T> current;
+				current = front;
+				while(current.next != null) {
+					current = current.next;
+				}
+				current.next = node;
+				count++; 
 			}
-			current.next = node;
-			count++; 
 		}else {
 			boolean found = false;
 			ListWithRepNode<T> current;
