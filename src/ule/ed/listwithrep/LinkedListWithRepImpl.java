@@ -94,24 +94,26 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 	/////////////
 	@Override
 	public void add(T element) {
-		if(element == null) {
-			throw new IllegalArgumentException("IllegalArgumentException");
+		if(element.equals(null)) {
+			throw new NullPointerException(" ");
 		}
 		else if (! (contains(element))) {
-		ListWithRepNode<T> node = new ListWithRepNode<T> (element,1);
-		node.next=front;
-		front=node;
-		count++; 
+			ListWithRepNode<T> node = new ListWithRepNode<T> (element,1);
+			ListWithRepNode<T> current;
+			current = front;
+			while(!(current.next.equals(null))) {
+				current = current.next;
+			}
+			current.next = node;
+			count++; 
 		}else {
 			boolean found = false;
-			ListWithRepNode<T> previous, current;
-			previous =front;
-			current = front.next;
-			for (int look=1; look<count && !found; look++) {
+			ListWithRepNode<T> current;
+			current = front;
+			for (int look=0; look<count && !found; look++) {
 				if (current.elem.equals(element)) {
 					found = true;
 				}else{
-					previous = current;
 					current = current.next;
 				}
 			}
@@ -121,16 +123,22 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 	
 	@Override
 	public void add(T element, int times) {
-		if(element == null) {
-			throw new IllegalArgumentException("IllegalArgumentException");
+		if(element.equals(null)) {
+			throw new NullPointerException(" ");
+		}
+		else if(times < 0) {
+			throw new IllegalArgumentException(" ");
 		}
 		else if(times == 0) {
-			
 		}
 		else if (! (contains(element))) {
 			ListWithRepNode<T> node = new ListWithRepNode<T> (element,times);
-			node.next=front;
-			front=node;
+			ListWithRepNode<T> current;
+			current = front;
+			while(!(current.next.equals(null))) {
+				current = current.next;
+			}
+			current.next = node;
 			count++; 
 		}else {
 			boolean found = false;
@@ -153,7 +161,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		boolean found = false;
 		ListWithRepNode<T> previous, current;
 		int rep = 0;
-		if(element == null) {
+		if(element.equals(null)) {
 			throw new NullPointerException("NullPointerException");
 		}else
 		if(times < 0) {
