@@ -225,6 +225,9 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 	
 	@Override
 	public boolean contains(T element) {
+		if(element.equals(null)) {
+			throw new NullPointerException("");
+		}else {
 		boolean found = false;
 		ListWithRepNode<T> current;
 		current = front;
@@ -236,6 +239,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 			}
 		}
 		return found;
+		}
 	}
 
 	@Override
@@ -281,15 +285,14 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 	public void clear() {
 		ListWithRepNode<T> aux;
 		aux = null;
-		front.next = aux;
+		front = aux;
 	}
 
 	@Override
 	public int count(T element) {
 		int num = 0;
-		if(!contains(element)){}
-		else if(element.equals(null)) {
-			throw new NullPointerException();
+		if(element.equals(null)) {
+			throw new NullPointerException("");
 		}else {
 			ListWithRepNode<T> current;
 			current = front;

@@ -231,13 +231,16 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 
 			@Override
 			public boolean contains(T element) {
+				if(element.equals(null)) {
+					throw new NullPointerException("");
+				}else {
 				for(int i=0;i<count;i++) {
 					if(data[i].elem.equals(element)) {
 						return true;
 					}
 				}
 				return false;
-
+				}
 			}
 			
 			public int whereContains(T element) {
