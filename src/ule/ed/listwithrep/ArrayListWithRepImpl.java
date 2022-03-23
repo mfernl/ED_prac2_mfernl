@@ -124,8 +124,13 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 	
 			@Override
 			public void add(T element, int times) {
-				if(element == null) {
-					throw new IllegalArgumentException("IllegalArgumentException");
+				if(element.equals(null)) {
+					throw new NullPointerException(" ");
+				}
+				else if(times < 0) {
+					throw new IllegalArgumentException(" ");
+				}
+				else if(times == 0) {
 				}
 				else if (!(contains(element))) {
 					 if (size() == data.length)
@@ -142,8 +147,8 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 
 			@Override
 			public void add(T element) {
-				if(element == null) {
-					throw new IllegalArgumentException("IllegalArgumentException");
+				if(element.equals(null)) {
+					throw new NullPointerException(" ");
 				}
 				else if (!(contains(element))) {
 						 if (size() == data.length)
