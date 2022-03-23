@@ -176,9 +176,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		}else
 		if(times < 0) {
 			throw new IllegalArgumentException("IllegalArgumentException");
-		}
-		
-		else if(times == 0) {
+		}else if(times == 0) {
 			rep = 0;
 		}else if (isEmpty()) {
 		throw new EmptyCollectionException("EmptyCollectionException");
@@ -186,19 +184,19 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		else if(!contains(element)) {
 			throw new NoSuchElementException("");
 		}else
-		if (front.elem.equals(element)) {
-			if(times > front.num) {
-				rep = front.num;
-				front = front.next;
-				count--;
-			}else {
-				rep = front.num;
-				front.num = front.num - times;
-			}
+			if (front.elem.equals(element)) {
+				if(times > front.num) {
+					rep = times;
+					front = front.next;
+					count--;
+				}else {
+					rep = times;
+					front.num = front.num - times;
+				}
 		}else{
 			previous =front;
 			current = front.next;
-			for (int look=1; look<count && !found; look++) {
+			for (int look=0; look<count && !found; look++) {
 				if (current.elem.equals(element)) {
 					found = true;
 				}else{
@@ -206,18 +204,14 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 					current = current.next;
 				}
 			}
-			if (!found) {
-				throw new NoSuchElementException();
-			}else {
-				if(times > front.num) {
-					rep = current.num;
+				if(times > current.num) {
+					rep = times;
 					previous.next = current.next;
 					count--;
 				}else {
-					rep = current.num;
+					rep = times;
 					current.num = current.num - times;
 				}
-			}
 		}
 			return rep;
 	}

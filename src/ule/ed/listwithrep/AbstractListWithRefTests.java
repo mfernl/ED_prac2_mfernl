@@ -104,7 +104,11 @@ public abstract class AbstractListWithRefTests {
 
 	
 	// TODO AÑADIR MAS TESTS
-	
+	@Test
+	public void testRemoveLast() throws EmptyCollectionException {
+		assertEquals(2,S2.remove("XYZ", 2));
+		assertEquals(8,S2.count("XYZ"));
+	}
 	
 	
 
