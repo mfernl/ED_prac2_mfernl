@@ -159,11 +159,14 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		if(times < 0) {
 			throw new IllegalArgumentException("IllegalArgumentException");
 		}
-		else if (isEmpty()) {
+		
+		else if(times == 0) {
+			rep = 0;
+		}else if (isEmpty()) {
 		throw new EmptyCollectionException("EmptyCollectionException");
 		}
-		if(times == 0) {
-			
+		else if(!contains(element)) {
+			throw new NoSuchElementException("");
 		}else
 		if (front.elem.equals(element)) {
 			if(times > front.num) {
@@ -301,8 +304,13 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		// TODO Ir añadiendo en buffer las cadenas para la representación de la cola. Ejemplo: (A A A B )
 		ListWithRepNode<T> current;
 		current = front;
-		for (int look=1; look<count; look++) {
-			buffer.append(current.elem + " ");
+		for (int look=0; look<count; look++) {
+			if(current.equals(null)) {}
+			else{
+				for(int i=0; i<current.num;i++ ) {
+					buffer.append(current.elem + " ");
+				}
+			}
 			current = current.next;
 		}
 		// Se concatena cada elemento seguido por un espacio
