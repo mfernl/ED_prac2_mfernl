@@ -122,7 +122,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 					current = current.next;
 				}
 			}
-			current.num =+ 1;
+			current.num = current.num + 1;
 		}
 	}
 	
