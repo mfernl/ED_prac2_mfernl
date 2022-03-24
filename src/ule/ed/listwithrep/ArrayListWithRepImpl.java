@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import ule.ed.exceptions.EmptyCollectionException;
+import ule.ed.listwithrep.LinkedListWithRepImpl.ListWithRepNode;
 
 public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 	
@@ -210,8 +211,10 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 								count--;
 							}else {
 								num = data[place].num;
-								data[place]=data[count-1];
-								data[place]=null;
+								for(int i=place;i<count-1;i++) {
+									data[i] = data[i+1];
+								}
+								data[count-1] = null;
 								count--;
 							}
 						}else if (times<data[place].num) {
@@ -244,23 +247,24 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 					for(int i=0;i<count;i++) {
 						data[i]=null;
 					}
+				count = 0;
 				}
-				
 			}
 			
 
 			@Override
 			public boolean contains(T element) {
+				boolean found = false;
 				if(element == null) {
 					throw new NullPointerException("");
 				}else {
-				for(int i=0;i<count;i++) {
-					if(data[i].elem.equals(element)) {
-						return true;
+				for(int i=0; i<count && found!=true;i++) {
+					if (data[i].elem.equals(element)) {
+						found = true;
 					}
 				}
-				return false;
-				}
+			}
+				return found;
 			}
 			
 			public int whereContains(T element) {
@@ -275,29 +279,32 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 
 			@Override
 			public boolean isEmpty() {
-				for(int i=0;i<count;i++) {
-					if(data[i] != null) {
-						return false;
-					}
+				if(count == 0) {
+					return true;
+				}else {
+					return false;
 				}
-				return true;
 			}
 
 			@Override
 			public long size() {
-				if(isEmpty()) {
-					return 0;
-				}else {
-					long size=0;
-					for(int i=0;i<count;i++) {
+			 long size = 0;
+			 if(isEmpty()) {
+				 size=0;
+			 }
+			 else{
+					for (int i=0; i<count; i++) {
 						size = size + data[i].num;
 					}
-					return size;	
-				}
+			 }
+				return size;
+				
 			}
 
 			@Override
 			public int count(T element) {
+				if(element == null) 
+					throw new NullPointerException("");
 				int count = 0;
 				if(contains(element)==false) {
 					return 0;

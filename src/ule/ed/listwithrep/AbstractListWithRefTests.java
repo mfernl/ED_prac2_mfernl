@@ -62,7 +62,7 @@ public abstract class AbstractListWithRefTests {
 	//Añadir elementos con una multiplicidad incrementa su contador y el tamaño de la cola: ")
 	public void testAddWithCount() {
 		S1.add("ABC", 5);
-		assertEquals(S1.count("ABC"), 5);
+		assertEquals(S1.count("ABC"), 5); 
 		assertEquals(S1.size(), 5);
 		S1.add("ABC", 5);
 		assertEquals(S1.count("ABC"), 10);
@@ -131,6 +131,40 @@ public abstract class AbstractListWithRefTests {
 		assertEquals(2,S2.remove("XYZ", 2));
 		assertFalse(S2.contains("XYZ"));
 	}
-	
+	@Test
+	public void testRemoveSecond() throws EmptyCollectionException {
+		S1.add("hola",5);
+		S1.add("aloh",5);
+		assertEquals(5,S1.remove());
+		assertFalse(S1.contains("hola"));
+		assertEquals(5,S1.size());
+		assertEquals(5,S1.remove());
+		assertFalse(S1.contains("aloh"));
+		assertEquals(0,S1.size());
+	}
+	@Test
+	public void testRemoveSecondElement() throws EmptyCollectionException {
+		S1.add("hola",5);
+		S1.add("aloh",5);
+		assertEquals(5,S1.remove("aloh",5));
+		assertFalse(S1.contains("aloh"));
+		assertEquals(5,S1.size());
+		assertEquals(5,S1.remove());
+		assertFalse(S1.contains("aloh"));
+		assertEquals(0,S1.size());
+	}
+	@Test
+	public void testSize() throws EmptyCollectionException {
+		assertTrue(S1.isEmpty());
+		assertEquals(0,S1.size());
+		S1.add("XD",3);
+		assertFalse(S1.isEmpty());
+		assertEquals(3,S1.size());
+		assertTrue(S1.contains("XD"));
+		S1.remove();
+		assertTrue(S1.isEmpty());
+		assertEquals(0,S1.size());
+		assertFalse(S1.contains("Xd"));
+	}
 
 }

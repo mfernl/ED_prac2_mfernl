@@ -162,7 +162,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 				current = front;
 				while(current.next != null) {
 					current = current.next;
-				}
+				} 
 				current.next = node;
 				count++; 
 			}
@@ -287,6 +287,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 			aux = front.next;
 			rep = front.num;
 			front = aux;
+			count--;
 		}
 		return rep;
     }
