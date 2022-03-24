@@ -110,7 +110,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 	/////////////
 	@Override
 	public void add(T element) {
-		if(element.equals(null)) {
+		if(element == null) {
 			throw new NullPointerException(" ");
 		}
 		else if (! (contains(element))) {
@@ -144,7 +144,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 	
 	@Override
 	public void add(T element, int times) {
-		if(element.equals(null)) {
+		if(element == null) {
 			throw new NullPointerException(" ");
 		}
 		else if(times < 0) {
@@ -187,7 +187,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		boolean found = false;
 		ListWithRepNode<T> previous, current;
 		int rep = 0;
-		if(element.equals(null)) {
+		if(element == null) {
 			throw new NullPointerException("NullPointerException");
 		}else
 		if(times < 0) {
@@ -201,11 +201,11 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 			throw new NoSuchElementException("");
 		}else
 			if (front.elem.equals(element)) {
-				if(times > front.num) {
-					rep = times;
+				if(times >= front.num) {
+					rep = front.num;
 					front = front.next;
 					count--;
-				}else {
+				}else if (times<front.num) {
 					rep = times;
 					front.num = front.num - times;
 				}
@@ -220,11 +220,11 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 					current = current.next;
 				}
 			}
-				if(times > current.num) {
-					rep = times;
+				if(times >= current.num) {
+					rep = current.num;
 					previous.next = current.next;
 					count--;
-				}else {
+				}else if(times<current.num) {
 					rep = times;
 					current.num = current.num - times;
 				}
@@ -235,7 +235,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 	
 	@Override
 	public boolean contains(T element) {
-		if(element.equals(null)) {
+		if(element == null) {
 			throw new NullPointerException("");
 		}else {
 		boolean found = false;
@@ -270,7 +270,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 
 	@Override
 	public boolean isEmpty() {
-		if(front == null) {
+		if(this.front == null) {
 			return true;
 		}else {
 			return false;
@@ -285,7 +285,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		}else {
 			ListWithRepNode<T> aux;
 			aux = front.next;
-			rep = aux.num;
+			rep = front.num;
 			front = aux;
 		}
 		return rep;
@@ -301,7 +301,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 	@Override
 	public int count(T element) {
 		int num = 0;
-		if(element.equals(null)) {
+		if(element == null) {
 			throw new NullPointerException("");
 		}else {
 			ListWithRepNode<T> current;
@@ -336,7 +336,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		ListWithRepNode<T> current;
 		current = front;
 		for (int look=0; look<count; look++) {
-			if(current.equals(null)) {}
+			if(current== null) {}
 			else{
 				for(int i=0; i<current.num;i++ ) {
 					buffer.append(current.elem + " ");

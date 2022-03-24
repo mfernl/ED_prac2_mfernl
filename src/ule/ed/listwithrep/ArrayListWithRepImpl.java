@@ -79,10 +79,6 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 		@Override
 		public boolean hasNext() {
 			if(items[current] != null) {
-				int n = 0;
-				for(int i=0; i<count;i++) {
-					n = items[i].num + n;
-				}
 				if(cont == 0) {
 					return (items[current + 1] != null || cont+1 < items[current].num);
 				}else {
@@ -145,7 +141,7 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 	
 			@Override
 			public void add(T element, int times) {
-				if(element.equals(null)) {
+				if(element == null) {
 					throw new NullPointerException(" ");
 				}
 				else if(times < 0) {
@@ -168,7 +164,7 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 
 			@Override
 			public void add(T element) {
-				if(element.equals(null)) {
+				if(element == null) {
 					throw new NullPointerException(" ");
 				}
 				else if (!(contains(element))) {
@@ -187,7 +183,7 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 			public int remove(T element, int times) throws EmptyCollectionException {
 				int num = 0;
 				int place = 0; //donde esta el elemento que queremos eliminar
-				if(element.equals(null)) {
+				if(element == null) {
 					throw new NullPointerException("");
 				}else 
 				if(times < 0) {
@@ -207,18 +203,18 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 						place = index;
 						}
 					}
-						if(times>data[place].num) {
+						if(times>=data[place].num) {
 							if(place == count-1) {
+								num = data[place].num;
 								data[place]=null;
 								count--;
-								num = times;
 							}else {
+								num = data[place].num;
 								data[place]=data[count-1];
 								data[place]=null;
 								count--;
-								num = times;
 							}
-						}else {
+						}else if (times<data[place].num) {
 							data[place].num = data[place].num - times;
 							num = times;
 						}
@@ -255,7 +251,7 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 
 			@Override
 			public boolean contains(T element) {
-				if(element.equals(null)) {
+				if(element == null) {
 					throw new NullPointerException("");
 				}else {
 				for(int i=0;i<count;i++) {
