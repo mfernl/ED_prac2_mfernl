@@ -67,6 +67,7 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 		private int count;
 		private int current;
 		private ElemListWithRep<T>[] items;
+		private int cont = 0;
 	
 		public ArrayListWithRepIteratorRep(ElemListWithRep<T>[] cola, int count){
 			
@@ -77,16 +78,36 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 
 		@Override
 		public boolean hasNext() {
-			//TODO
-			 return (current < count); 						
+			if(items[current] != null) {
+				int n = 0;
+				for(int i=0; i<count;i++) {
+					n = items[i].num + n;
+				}
+				if(cont == 0) {
+					return (items[current + 1] != null || cont+1 < items[current].num);
+				}else {
+					return(items[current + 1] != null || cont < items[current].num);
+				}
+			}
+			else {
+				return false;
+			}
 		}
 
 		@Override
 		public T next() {
 			if (! hasNext())
 				 throw new NoSuchElementException();
-				 current ++;
-				 return items[current -1].elem;
+				 T result = null;
+				 if(cont < items[current].num) {
+					 result = items[current].elem;
+					 cont++;
+				 }else {
+					 result = items[current + 1].elem;
+					 cont = 1;
+					 current++;
+				 }
+				 return result;
 		}
 		
 		
@@ -268,11 +289,15 @@ public class ArrayListWithRepImpl<T> implements ListWithRep<T> {
 
 			@Override
 			public long size() {
-				long size=0;
-				for(int i=0;i<count;i++) {
-					size = size + data[i].num;
+				if(isEmpty()) {
+					return 0;
+				}else {
+					long size=0;
+					for(int i=0;i<count;i++) {
+						size = size + data[i].num;
+					}
+					return size;	
 				}
-				return size;	
 			}
 
 			@Override
