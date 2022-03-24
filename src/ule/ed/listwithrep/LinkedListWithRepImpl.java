@@ -212,7 +212,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		}else{
 			previous =front;
 			current = front.next;
-			for (int look=0; look<count && !found; look++) {
+			for (int look=1; look<count && !found; look++) {
 				if (current.elem.equals(element)) {
 					found = true;
 				}else{
