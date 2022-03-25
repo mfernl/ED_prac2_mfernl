@@ -64,7 +64,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 		
 		 private int count;
 		 private ListWithRepNode<T> current;
-		 private int cont = 0;
+		 private int laps = 0;
 		
 		 public LinkedListWithRepIteratorRep (ListWithRepNode<T> collection, int size){
 		  current= collection;
@@ -74,10 +74,10 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
   	   @Override
 		public boolean hasNext() {
   		   if(current != null) {
-  			   if(cont == 0) {
-  				   return (current.next != null || cont+1 < current.num);
+  			   if(laps == 0) {
+  				   return (current.next != null || laps+1 < current.num);
   			   }else {
-  				   return (current.next != null || cont < current.num);
+  				   return (current.next != null || laps < current.num);
   			   }
   		   }else {
   			   return false;
@@ -89,13 +89,13 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 			 if (! hasNext())
 					throw new NoSuchElementException();
 				 	T result;
-					if(cont == current.num) {
+					if(laps == current.num) {
 						current = current.next;
 						result = current.elem;
-						cont = 1;
+						laps = 1;
 					}else {
 						result = current.elem;
-						cont++;
+						laps++;
 					}
 					return result;
 				}
@@ -111,7 +111,7 @@ public class LinkedListWithRepImpl<T> implements ListWithRep<T> {
 	@Override
 	public void add(T element) {
 		if(element == null) {
-			throw new NullPointerException(" ");
+			throw new NullPointerException("");
 		}
 		else if (! (contains(element))) {
 			ListWithRepNode<T> node = new ListWithRepNode<T> (element,1);

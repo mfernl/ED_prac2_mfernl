@@ -1,5 +1,9 @@
 package ule.ed.listwithrep;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+
 public class LinkedListWithRepRefTests extends AbstractListWithRefTests {
 
 	@Override
